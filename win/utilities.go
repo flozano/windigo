@@ -625,10 +625,16 @@ func (me *Ini) Serialize() string {
 
 	for idxSection := range me.Sections {
 		section := &me.Sections[idxSection]
-		serialized.WriteString("[" + section.Name + "]\r\n")
+		serialized.WriteString("[")
+		serialized.WriteString(section.Name)
+		serialized.WriteString("]\r\n")
+
 		for idxEntry := range section.Entries {
 			value := &section.Entries[idxEntry]
-			serialized.WriteString(value.Key + "=" + value.Value + "\r\n")
+			serialized.WriteString(value.Key)
+			serialized.WriteString("=")
+			serialized.WriteString(value.Value)
+			serialized.WriteString("\r\n")
 		}
 
 		isLast := idxSection == len(me.Sections)-1
