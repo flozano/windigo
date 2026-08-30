@@ -238,7 +238,7 @@ func (me *IFileOperation) RenameItem(
 
 // [SetOperationFlags] method.
 //
-// [SetOperationFlags]:
+// [SetOperationFlags]: https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setoperationflags
 func (me *IFileOperation) SetOperationFlags(flags cosh.FOF) error {
 	ret, _, _ := syscall.SyscallN(
 		utl.Vt[_IFileOperationVt](me.Ppvt()).SetOperationFlags,

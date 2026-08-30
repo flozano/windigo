@@ -123,7 +123,7 @@ func (me *IWICBitmapEncoder) SetPreview(preview *IWICBitmapSource) error {
 
 // [SetThumbnail] method.
 //
-// [SetThumbnail]:
+// [SetThumbnail]: https://learn.microsoft.com/en-us/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setthumbnail
 func (me *IWICBitmapEncoder) SetThumbnail(thumbnail *IWICBitmapSource) error {
 	ret, _, _ := syscall.SyscallN(
 		utl.Vt[_IWICBitmapEncoderVt](me.Ppvt()).SetThumbnail,
