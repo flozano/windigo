@@ -85,29 +85,29 @@ func (me *IDXGIDevice) GetGPUThreadPriority() (int, error) {
 	return int(priority), nil
 }
 
-// // [QueryResourceResidency] method.
-// //
-// // [QueryResourceResidency]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency
-// func (me *IDXGIDevice) QueryResourceResidency(
-// 	resources ...*win.IDXGIResource,
-// ) ([]codxgi.DXGI_RESIDENCY, error) {
-// 	ppvts := make([]uintptr, 0, len(resources))
-// 	for _, res := range resources {
-// 		ppvts = append(ppvts, res.Ppvt())
-// 	}
-// 	statuses := make([]codxgi.DXGI_RESIDENCY, len(resources))
+// [QueryResourceResidency] method.
+//
+// [QueryResourceResidency]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency
+func (me *IDXGIDevice) QueryResourceResidency(
+	resources ...*IDXGIResource,
+) ([]codxgi.DXGI_RESIDENCY, error) {
+	ppvts := make([]uintptr, 0, len(resources))
+	for _, res := range resources {
+		ppvts = append(ppvts, res.Ppvt())
+	}
+	statuses := make([]codxgi.DXGI_RESIDENCY, len(resources))
 
-// 	ret, _, _ := syscall.SyscallN(
-// 		utl.Vt[_IDXGIDeviceVt](me.Ppvt()).QueryResourceResidency,
-// 		me.Ppvt(),
-// 		uintptr(unsafe.Pointer(&ppvts[0])),
-// 		uintptr(unsafe.Pointer(&statuses[0])),
-// 		uintptr(uint32(len(resources))))
-// 	if hr := co.HRESULT(ret); hr != co.HRESULT_S_OK {
-// 		return nil, hr
-// 	}
-// 	return statuses, nil
-// }
+	ret, _, _ := syscall.SyscallN(
+		utl.Vt[_IDXGIDeviceVt](me.Ppvt()).QueryResourceResidency,
+		me.Ppvt(),
+		uintptr(unsafe.Pointer(&ppvts[0])),
+		uintptr(unsafe.Pointer(&statuses[0])),
+		uintptr(uint32(len(resources))))
+	if hr := co.HRESULT(ret); hr != co.HRESULT_S_OK {
+		return nil, hr
+	}
+	return statuses, nil
+}
 
 // [SetGPUThreadPriority] method.
 //

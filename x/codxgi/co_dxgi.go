@@ -18,6 +18,7 @@ var (
 	IID_IDXGIKeyedMutex      = co.IID(co.GUID{0x9d8e1289, 0xd7b3, 0x465f, [8]byte{0x81, 0x26, 0x25, 0x0e, 0x34, 0x9a, 0xf8, 0x5d}})
 	IID_IDXGIObject          = co.IID(co.GUID{0xaec22fb8, 0x76f3, 0x4639, [8]byte{0x9b, 0xe0, 0x28, 0xeb, 0x43, 0xa6, 0x7a, 0x2e}})
 	IID_IDXGIOutput          = co.IID(co.GUID{0xae02eedb, 0xc735, 0x4690, [8]byte{0x8d, 0x52, 0x5a, 0x8d, 0xc2, 0x02, 0x13, 0xaa}})
+	IID_IDXGIResource        = co.IID(co.GUID{0x035f3ab4, 0x482e, 0x4e50, [8]byte{0xb4, 0x1f, 0x8a, 0x7f, 0x8b, 0xd8, 0x96, 0x0b}})
 	IID_IDXGISurface         = co.IID(co.GUID{0xcafcb56c, 0x6ac3, 0x4889, [8]byte{0xbf, 0x47, 0x9e, 0x23, 0xbb, 0xd2, 0x60, 0xec}})
 	IID_IDXGISwapChain       = co.IID(co.GUID{0x310d36a0, 0xd2e7, 0x4c0a, [8]byte{0xaa, 0x04, 0x6a, 0x9d, 0x23, 0xb8, 0x88, 0x6a}})
 	IID_IDXGISwapChain1      = co.IID(co.GUID{0x790a45f7, 0x0d42, 0x4876, [8]byte{0x98, 0x3a, 0x0a, 0x55, 0xcf, 0xe6, 0xf4, 0xaa}})
@@ -271,6 +272,21 @@ const (
 	DXGI_RESIDENCY_FULLY_RESIDENT            DXGI_RESIDENCY = 1
 	DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY DXGI_RESIDENCY = 2
 	DXGI_RESIDENCY_EVICTED_TO_DISK           DXGI_RESIDENCY = 3
+)
+
+// [IDXGIResource.GetEvictionPriority] and [IDXGIResource.SetEvictionPriority]
+// evictionPriority.
+//
+// [IDXGIResource.GetEvictionPriority]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getevictionpriority
+// [IDXGIResource.SetEvictionPriority]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/nf-dxgi-idxgiresource-setevictionpriority
+type DXGI_RESOURCE_PRIORITY uint32
+
+const (
+	DXGI_RESOURCE_PRIORITY_MINIMUM DXGI_RESOURCE_PRIORITY = 0x2800_0000
+	DXGI_RESOURCE_PRIORITY_LOW     DXGI_RESOURCE_PRIORITY = 0x5000_0000
+	DXGI_RESOURCE_PRIORITY_NORMAL  DXGI_RESOURCE_PRIORITY = 0x7800_0000
+	DXGI_RESOURCE_PRIORITY_HIGH    DXGI_RESOURCE_PRIORITY = 0xa000_0000
+	DXGI_RESOURCE_PRIORITY_MAXIMUM DXGI_RESOURCE_PRIORITY = 0xc800_0000
 )
 
 // [DXGI_SCALING] enumeration.
