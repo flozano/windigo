@@ -131,12 +131,11 @@ func OleInjectIfOk(
 		Add(obj interface{ Release() })
 	},
 ) error {
-	if hr := co.HRESULT(ret); hr == co.HRESULT_S_OK {
-		OleInject(ppOut, ppvtQueried, releaser)
-		return nil
-	} else {
+	if hr := co.HRESULT(ret); hr != co.HRESULT_S_OK {
 		return hr
 	}
+	OleInject(ppOut, ppvtQueried, releaser)
+	return nil
 }
 
 // Actions:
@@ -178,12 +177,11 @@ func OleNewIfOk[T interface{ IID() *co.IID }](
 		Add(obj interface{ Release() })
 	},
 ) (T, error) {
-	if hr := co.HRESULT(ret); hr == co.HRESULT_S_OK {
-		return OleNew[T](ppvtQueried, releaser), nil
-	} else {
+	if hr := co.HRESULT(ret); hr != co.HRESULT_S_OK {
 		var dummy T // nil pointer
 		return dummy, hr
 	}
+	return OleNew[T](ppvtQueried, releaser), nil
 }
 
 // Actions:
@@ -237,13 +235,11 @@ func OleCallReturnStruct[T interface{}](me interface{ Ppvt() uintptr }, pMethod 
 		pMethod,
 		me.Ppvt(),
 		uintptr(unsafe.Pointer(&obj)))
-
-	if hr := co.HRESULT(ret); hr == co.HRESULT_S_OK {
-		return obj, nil
-	} else {
+	if hr := co.HRESULT(ret); hr != co.HRESULT_S_OK {
 		var dummy T
 		return dummy, hr
 	}
+	return obj, nil
 }
 
 // So it can be used by HIMAGELIST and ui without causing a cyclic dependency.

@@ -10,6 +10,7 @@ import (
 var (
 	IID_IDXGIAdapter         = co.IID(co.GUID{0x2411e7e1, 0x12ac, 0x4ccf, [8]byte{0xbd, 0x14, 0x97, 0x98, 0xe8, 0x53, 0x4d, 0xc0}})
 	IID_IDXGIAdapter1        = co.IID(co.GUID{0x29038f61, 0x3839, 0x4626, [8]byte{0x91, 0xfd, 0x08, 0x68, 0x79, 0x01, 0x1a, 0x05}})
+	IID_IDXGIDevice          = co.IID(co.GUID{0x54ec77fa, 0x1377, 0x44e6, [8]byte{0x8c, 0x32, 0x88, 0xfd, 0x5f, 0x44, 0xc8, 0x4c}})
 	IID_IDXGIDeviceSubObject = co.IID(co.GUID{0x3d3e0379, 0xf9de, 0x4d58, [8]byte{0xbb, 0x6c, 0x18, 0xd6, 0x29, 0x92, 0xf1, 0xa6}})
 	IID_IDXGIFactory         = co.IID(co.GUID{0x7b7166ec, 0x21c7, 0x44ae, [8]byte{0xb2, 0x1a, 0xc9, 0xae, 0x32, 0x1a, 0xe3, 0x69}})
 	IID_IDXGIFactory1        = co.IID(co.GUID{0x770aae78, 0xf26f, 0x4dba, [8]byte{0xa8, 0x29, 0x25, 0x3c, 0x83, 0xd1, 0xb3, 0x87}})
@@ -259,6 +260,17 @@ const (
 	DXGI_PRESENT_STEREO_TEMPORARY_MONO DXGI_PRESENT = 0x0000_0040
 	DXGI_PRESENT_USE_DURATION          DXGI_PRESENT = 0x0000_0100
 	DXGI_PRESENT_ALLOW_TEARING         DXGI_PRESENT = 0x0000_0200
+)
+
+// [DXGI_RESIDENCY] enumeration.
+//
+// [DXGI_RESIDENCY]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/ne-dxgi-dxgi_residency
+type DXGI_RESIDENCY uint32
+
+const (
+	DXGI_RESIDENCY_FULLY_RESIDENT            DXGI_RESIDENCY = 1
+	DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY DXGI_RESIDENCY = 2
+	DXGI_RESIDENCY_EVICTED_TO_DISK           DXGI_RESIDENCY = 3
 )
 
 // [DXGI_SCALING] enumeration.

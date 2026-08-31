@@ -176,6 +176,13 @@ type DXGI_SAMPLE_DESC struct {
 	Quality uint32
 }
 
+// [DXGI_SHARED_RESOURCE] struct, with C memory layout.
+//
+// [DXGI_SHARED_RESOURCE]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/ns-dxgi-dxgi_shared_resource
+type DXGI_SHARED_RESOURCE struct {
+	Handle win.HANDLE
+}
+
 // [DXGI_SURFACE_DESC] struct, with C memory layout.
 //
 // [DXGI_SURFACE_DESC]: https://learn.microsoft.com/en-us/windows/win32/api/dxgi/ns-dxgi-dxgi_surface_desc
