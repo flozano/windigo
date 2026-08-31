@@ -57,7 +57,7 @@ func (me *IDXGISurface) Map(flags codxgi.DXGI_MAP) (DXGI_MAPPED_RECT, error) {
 		uintptr(unsafe.Pointer(&lockedRect)),
 		uintptr(flags))
 	if hr := co.HRESULT(ret); hr != co.HRESULT_S_OK {
-		return DXGI_MAPPED_RECT{}, nil
+		return DXGI_MAPPED_RECT{}, hr
 	}
 	return lockedRect, nil
 }
