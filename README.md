@@ -15,7 +15,6 @@ Notably, Windigo is written 100% in pure Go – CGo is **not** used, just native
 
 Windigo is based in Go 1.20, so it can be built in [Windows 7](https://go.dev/doc/go1.20#windows) and above.
 
-
 ## Install
 
 ```
