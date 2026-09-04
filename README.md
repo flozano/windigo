@@ -398,11 +398,11 @@ The library is divided in several packages. Core packages are located at at the 
 | [`ui`](https://pkg.go.dev/github.com/rodrigocfd/windigo/ui) | – | Core high-level UI windows and controls |
 | [`wstr`](https://pkg.go.dev/github.com/rodrigocfd/windigo/wstr) | – | Core string and UTF-16 wide string management |
 | [`win`](https://pkg.go.dev/github.com/rodrigocfd/windigo/win) | [`co`](https://pkg.go.dev/github.com/rodrigocfd/windigo/co) | Core Win32 components |
-| `winaut` | `coaut` | [Automation](https://learn.microsoft.com/en-us/windows/win32/api/_automat/) |
-| `windxgi` | `codxgi` | [DirectX Graphics Infrastructure](https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dx-graphics-dxgi) |
-| `winsh` | `cosh` | [Windows Shell](https://learn.microsoft.com/en-us/windows/win32/shell/shell-entry) |
-| `wintasks` | `cotasks` | [Task Scheduler](https://learn.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page) |
-| `winwic` | `cowic` | [Windows Imaging Component](https://learn.microsoft.com/en-us/windows/win32/wic/-wic-lh) |
+| [`winaut`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/winaut) | [`coaut`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/coaut) | [Automation](https://learn.microsoft.com/en-us/windows/win32/api/_automat/) |
+| [`windxgi`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/windxgi) | [`codxgi`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/codxgi) | [DirectX Graphics Infrastructure](https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dx-graphics-dxgi) |
+| [`winsh`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/winsh) | [`cosh`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/cosh) | [Windows Shell](https://learn.microsoft.com/en-us/windows/win32/shell/shell-entry) |
+| [`wintasks`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/wintasks) | [`cotasks`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/cotasks) | [Task Scheduler](https://learn.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page) |
+| [`winwic`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/winwic) | [`cowic`](https://pkg.go.dev/github.com/rodrigocfd/windigo/x/cowic) | [Windows Imaging Component](https://learn.microsoft.com/en-us/windows/win32/wic/-wic-lh) |
 
 Core packages dependency:
 
