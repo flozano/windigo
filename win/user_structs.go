@@ -468,6 +468,26 @@ func MAKELPARAM(lo, hi uint16) LPARAM {
 	return LPARAM(MAKELONG(lo, hi))
 }
 
+// Ptr is the message parameter read as the pointer it is: the address
+// of a struct the sender owns, which is what WM_NOTIFY, WM_COPYDATA and
+// most of the WM_ messages that carry anything larger than two words put
+// there.
+//
+// It exists so that the conversion is written once, in the one place
+// where it is known to be sound, instead of in every window procedure.
+// go vet's unsafeptr check flags every uintptr-to-Pointer conversion,
+// correctly in general: a uintptr is not a reference and the collector
+// will not keep what it names alive. This one is different -- the
+// address comes from outside Go and names memory the sender holds for
+// the duration of the message -- and a caller should be able to say so
+// by calling a method rather than by disabling a check.
+//
+// The value is only valid while the message is being handled. Anything
+// that must outlive it has to be copied.
+func (lp LPARAM) Ptr() unsafe.Pointer {
+	return unsafe.Pointer(lp) //nolint:govet // see the comment above
+}
+
 func (lp LPARAM) LoWord() uint16 {
 	return LOWORD(uint32(lp))
 }

@@ -818,6 +818,39 @@ const (
 	TBSTATE_MARKED        TBSTATE = 0x80
 )
 
+// Common control [styles], shared by every control that can sit in a
+// band: the toolbar, the status bar, the rebar and the header.
+//
+// They live in the same word as the window styles, above them, so they
+// are combined with co.WS when a control is created.
+//
+// [styles]: https://learn.microsoft.com/en-us/windows/win32/controls/common-control-styles
+type CCS uint32
+
+const (
+	CCS_TOP           CCS = 0x0000_0001
+	CCS_NOMOVEY       CCS = 0x0000_0002
+	CCS_BOTTOM        CCS = 0x0000_0003
+	CCS_NORESIZE      CCS = 0x0000_0004
+	CCS_NOPARENTALIGN CCS = 0x0000_0008
+	CCS_ADJUSTABLE    CCS = 0x0000_0020
+	CCS_NODIVIDER     CCS = 0x0000_0040
+	CCS_VERT          CCS = 0x0000_0080
+	CCS_LEFT              = CCS_VERT | CCS_TOP
+	CCS_RIGHT             = CCS_VERT | CCS_BOTTOM
+	CCS_NOMOVEX           = CCS_VERT | CCS_NOMOVEY
+)
+
+// Values for [TBBUTTON].IBitmap that are not an index into an image
+// list: a button that draws nothing of its own, and one that asks on
+// every paint.
+//
+// [TBBUTTON]: https://learn.microsoft.com/en-us/windows/win32/api/commctrl/ns-commctrl-tbbutton
+const (
+	I_IMAGECALLBACK int32 = -1
+	I_IMAGENONE     int32 = -2
+)
+
 // Toolbar control [styles].
 //
 // [styles]: https://learn.microsoft.com/en-us/windows/win32/controls/toolbar-control-and-button-styles
