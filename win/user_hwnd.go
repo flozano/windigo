@@ -648,6 +648,25 @@ func (hWnd HWND) GetDpiForWindow() int {
 
 var _user_GetDpiForWindow *syscall.Proc
 
+// [GetDpiForWindow] where this Windows has it, reporting whether it
+// does.
+//
+// GetDpiForWindow arrived in Windows 10 1607; calling it on anything
+// older panics inside the loader. A window that only wants to size its
+// own controls has a perfectly good answer for a Windows that cannot
+// say -- ninety-six, like everything before per-monitor DPI -- and
+// should not have to recover from a panic to use it.
+//
+// [GetDpiForWindow]: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdpiforwindow
+func (hWnd HWND) GetDpiForWindowOk() (int, bool) {
+	addr, ok := dll.User.TryLoad(&_user_GetDpiForWindow, "GetDpiForWindow")
+	if !ok {
+		return 0, false
+	}
+	ret, _, _ := syscall.SyscallN(addr, uintptr(hWnd))
+	return int(uint32(ret)), true
+}
+
 // [GetLastActivePopup] function.
 //
 // [GetLastActivePopup]: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getlastactivepopup
