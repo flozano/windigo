@@ -39,6 +39,39 @@ var (
 	Version    = SystemDll{nil, "version"}
 )
 
+// Loads the procName system procedure into pDestProc address, and
+// reports whether it was there at all.
+//
+// Load panics when the procedure is missing, which is right for the
+// hundreds of calls that have existed since Windows 95 and wrong for
+// the handful that arrived later: GetDpiForWindow is Windows 10 1607,
+// and an LTSB 2015 is still a supported machine in the field. A caller
+// that has a sensible answer for "this Windows cannot do that" should
+// be able to ask rather than recover from a panic.
+func (me *SystemDll) TryLoad(pDestProc **syscall.Proc, procName string) (uintptr, bool) {
+	if pProc := atomic.LoadPointer((*unsafe.Pointer)(unsafe.Pointer(pDestProc))); pProc != nil {
+		return (*syscall.Proc)(pProc).Addr(), true // already cached
+	}
+
+	dllMutex.Lock()
+	defer dllMutex.Unlock()
+
+	if me.dll == nil {
+		loaded, err := syscall.LoadDLL(me.name)
+		if err != nil {
+			return 0, false
+		}
+		me.dll = loaded
+	}
+
+	proc, err := me.dll.FindProc(procName)
+	if err != nil {
+		return 0, false
+	}
+	*pDestProc = proc
+	return proc.Addr(), true
+}
+
 // Loads the procName system procedure into pDestProc address.
 func (me *SystemDll) Load(pDestProc **syscall.Proc, procName string) uintptr {
 	if pProc := atomic.LoadPointer((*unsafe.Pointer)(unsafe.Pointer(pDestProc))); pProc != nil {
